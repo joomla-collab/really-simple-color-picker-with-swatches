@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>
+			Picker
+		</title>
+		<meta charset="UTF-8">
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+		<style>
+			#color-pickers {
+				display: block;
+				width: 600px;
+				border: 1px solid #cccccc;
+				padding: 10px 15px;
+				margin: 50px;
+			}
+			.picker {
+				display: block;
+				width: 100%;
+				margin: 10px;
+				padding-bottom: 10px;
+				position: relative;
+			}
+			.picker-button {
+				border-radius: 5px;
+				padding: 7px 10px;
+				display: inline-block;
+				width: auto;
+				background: cadetblue;
+				color: #ffffff;
+				font-family: Verdana, sans;
+				cursor: pointer;
+			}
+			.color-picker-div {
+				overflow: hidden;
+				width: 100%;
+				margin: 10px 0;
+				position: absolute;
+				top: -11px;
+				background: #ffffff;
+				z-index: 99;
+				border: 1px solid #dddddd;
+				border-radius: 5px;
+				padding: 15px 5px 5px 15px;
+				box-shadow: 0 0 15px rgba(0,0,0,0.5);
+				left: 127px;
+			}
+			.color-picker-div a {
+				width: calc((100% / 16) - 10px);
+				margin: 0 10px 10px 0;
+				height: 30px;
+				display: block;
+				float: left;
+			}
+			.color-results {
+				display: block;
+				width: 600px;
+				border: 1px solid #cccccc;
+				padding: 10px 15px;
+				margin: 50px;
+			}
+			.color-result {
+				display: block;
+				padding: 20px 30px;
+				margin: 0 0 20px 0;
+			}
+		</style>
+	</head>
+	<body id="vue-body">
+		<div id="wrapper">
+			<div id="color-pickers">
+				<div id="cp01" class="picker">
+					<div class="picker-button" id="pick01" v-on:click='toggle1 = !toggle1'>Select color</div>
+					<div id="chooser01" class="color-picker-div" style="display: none;" v-show='toggle1'>
+						<a v-for="(pickcolor,i) in pickcolors" 
+							:key="i" 
+							href="#" 
+							:id="[`sw01-${i}`]" 
+							:style="{ background: '#' + pickcolor }"
+							v-on:click="color1(pickcolor), toggle1 = !toggle1"
+						></a>
+					</div>
+				</div>
+				<div id="cp02" class="picker">
+					<div class="picker-button" id="pick02" v-on:click='toggle2 = !toggle2'>Select color</div>
+					<div id="chooser02" class="color-picker-div" style="display: none;" v-show='toggle2'>
+						<a v-for="(pickcolor,i) in pickcolors" 
+							:key="i" 
+							href="#" 
+							:id="[`sw02-${i}`]" 
+							:style="{ background: '#' + pickcolor }"
+							v-on:click="color2(pickcolor), toggle2 = !toggle2"
+						></a>
+					</div>
+				</div>
+			</div>
+			<div class="color-results">
+				<div id="result01" class="color-result" v-bind:style="{ backgroundColor: bgcolor1}">
+					Color: <span>{{ bgcolor1 }}</span>
+				</div>
+				<div id="result02" class="color-result" v-bind:style="{ backgroundColor: bgcolor2}">
+					Color: <span>{{ bgcolor2 }}</span>
+				</div>
+			</div>
+		</div>
+		<script>
+			new Vue({
+				el: '#wrapper',
+				data: {
+					toggle1: '',
+					toggle2: '',
+					pickcolors: ['ffcdd2','f9bbd0','e1bee8','d0c4e8','c5cae8','b3e5fc','b2ebf2','c8e6ca','ddedc8','f0f4c2','fffac3','ffecb2','ffe0b2','ffccbb','d7ccc8','f5f5f5','e57373','f06292','b968c7','9675ce','7986cc','4fc2f8','4dd0e2','80c783','aed582','dde776','fff176','ffd54f','ffb64d','ff8b66','a0887e','9e9e9e','f44236','ea1e63','9c28b1','673bb7','3f51b5','03a9f5','00bcd5','4cb050','8bc24a','cddc39','ffeb3c','fec107','ff9700','fe5722','795547','616161','c62827','ad1457','6a1b9a','45289f','283593','0277bd','008290','2f7d32','548b2e','9e9e24','f9a825','ff8e01','ef6c00','d74315','4d342f','212121']
+				},
+				methods: {
+					color1: function (pickcolor) {
+						this.bgcolor1 = '#' + pickcolor
+					},
+					color2: function (pickcolor) {
+						this.bgcolor2 = '#' + pickcolor
+					}
+				}
+			})
+		</script>
+	</body>
+</html>
